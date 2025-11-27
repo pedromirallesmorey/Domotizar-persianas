@@ -160,8 +160,330 @@ actions:
     action: notify.mobile_app_sm_s936b_pedro
 ```
 
+Abrir Ventanas Post-Lluvia
+```
+alias: Abrir Ventanas Post-Lluvia
+description: Abre las ventanas después de la lluvia
+triggers:
+  - event_type: mobile_app_notification_action
+    event_data:
+      action: ABRIR_VENTANAS
+    trigger: event
+actions:
+  - action: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.no_abrir_persiana_lluvia
+  - action: cover.open_cover
+    target:
+      entity_id: cover.persiana_cocina
+  - delay:
+      seconds: 2
+  - action: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.no_abrir_persiana_lluvia
+  - action: notify.mobile_app_sm_s936b_pedro
+    data:
+      title: ✅ Persiana abierta
+      message: La persiana de cocina ha sido abierta
+      data:
+        tag: fin_lluvia
+mode: restart
+```
+
+Cancelar Cierre Lluvia
+```
+alias: Cancelar Cierre Lluvia
+description: Cancela el cierre automático de la persiana
+triggers:
+  - event_type: mobile_app_notification_action
+    event_data:
+      action: CANCELAR_CIERRE_LLUVIA
+    trigger: event
+actions:
+  - action: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.cancelar_cierre_lluvia
+    data: {}
+  - delay:
+      seconds: 65
+  - action: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.cancelar_cierre_lluvia
+    data: {}
+  - action: notify.mobile_app_sm_s936b_pedro
+    data:
+      title: ⚠️ Cierre cancelado
+      message: El cierre automático ha sido cancelado
+      data:
+        tag: cerrar_ventanas_lluvia
+mode: restart
+```
+
+Cerrar Ahora Lluvia
+```
+alias: Cerrar Ahora Lluvia
+description: Cierra la persiana inmediatamente sin esperar
+triggers:
+  - event_type: mobile_app_notification_action
+    event_data:
+      action: CERRAR_AHORA_LLUVIA
+    trigger: event
+actions:
+  - action: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.cancelar_cierre_lluvia
+    data: {}
+  - action: cover.close_cover
+    target:
+      entity_id: cover.persiana_cocina
+    data: {}
+  - delay:
+      seconds: 2
+  - action: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.cancelar_cierre_lluvia
+    data: {}
+  - action: notify.mobile_app_sm_s936b_pedro
+    data:
+      title: ✅ Persiana cerrada
+      message: Persiana cerrada inmediatamente
+      data:
+        tag: cerrar_ventanas_lluvia
+mode: restart
+```
+
+Cerrar Persianas por Lluvia
+```
+alias: Cerrar Persianas por Lluvia
+description: Pregunta antes de cerrar automáticamente cuando se confirma lluvia
+triggers:
+  - entity_id: binary_sensor.lluvia_confirmada_meteoclimatic
+    to: "on"
+    trigger: state
+conditions:
+  - condition: state
+    entity_id: cover.persiana_cocina
+    state: open
+actions:
+  - data:
+      title: 🌧️ ¡Lluvia detectada!
+      message: >
+        Cerrando persiana de cocina en 1 minuto.  {% set precip =
+        states('sensor.marratxi_son_ametler_mallorca_daily_precipitation') %} {%
+        if precip not in ['unknown', 'unavailable', 'none', ''] %} Precipitación
+        hoy: {{ precip }}mm {% endif %} Humedad: {{
+        state_attr('weather.marratxi_son_ametler_mallorca', 'humidity') }}%
+      data:
+        tag: cerrar_ventanas_lluvia
+        actions:
+          - action: CANCELAR_CIERRE_LLUVIA
+            title: Cancelar
+          - action: CERRAR_AHORA_LLUVIA
+            title: Cerrar ahora
+    action: notify.mobile_app_sm_s936b_pedro
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  - condition: state
+    entity_id: input_boolean.cancelar_cierre_lluvia
+    state: "off"
+  - action: cover.close_cover
+    target:
+      entity_id: cover.persiana_cocina
+  - data:
+      title: ✅ Persiana cerrada
+      message: >
+        Persiana de cocina cerrada por lluvia. {% set precip =
+        states('sensor.marratxi_son_ametler_mallorca_daily_precipitation') %} {%
+        if precip not in ['unknown', 'unavailable', 'none', ''] %} Precipitación
+        hoy: {{ precip }}mm {% endif %} Humedad: {{
+        state_attr('weather.marratxi_son_ametler_mallorca', 'humidity') }}%
+      data:
+        tag: ventanas_cerradas
+    action: notify.mobile_app_sm_s936b_pedro
+mode: single
+```
+
+Cerrar Ventanas Manual
+```
+alias: Cerrar Ventanas Manual
+description: Cierra ventanas desde la notificación móvil
+triggers:
+  - event_type: mobile_app_notification_action
+    event_data:
+      action: CERRAR_VENTANAS_MANUAL
+    trigger: event
+actions:
+  - target:
+      entity_id:
+        - cover.persiana_cocina
+    action: cover.close_cover
+    data: {}
+  - data:
+      title: ✅ Ventanas cerradas
+      message: Todas las ventanas han sido cerradas
+    action: notify.mobile_app_sm_s936b_pedro
+```
+
+No Abrir Persiana Post-Lluvia
+```
+alias: No Abrir Persiana Post-Lluvia
+description: Cancela la apertura automática de la persiana
+triggers:
+  - event_type: mobile_app_notification_action
+    event_data:
+      action: NO_ABRIR_PERSIANA
+    trigger: event
+actions:
+  - action: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.no_abrir_persiana_lluvia
+  - delay:
+      seconds: 125
+  - action: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.no_abrir_persiana_lluvia
+  - action: notify.mobile_app_sm_s936b_pedro
+    data:
+      title: ⚠️ Apertura cancelada
+      message: La persiana permanecerá cerrada
+      data:
+        tag: fin_lluvia
+mode: restart
+```
+
+Notificar Fin Lluvia
+```
+alias: Notificar Fin Lluvia
+description: Avisa cuando deja de llover con opción de abrir, o abre automáticamente en 2 minutos
+triggers:
+  - entity_id: binary_sensor.lluvia_confirmada_meteoclimatic
+    to: "off"
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+    trigger: state
+conditions:
+  - condition: sun
+    before: sunset
+    after: sunrise
+  - condition: state
+    entity_id: cover.persiana_cocina
+    state: closed
+actions:
+  - data:
+      title: ☀️ Ha dejado de llover
+      message: ¿Abrir persiana de cocina? Se abrirá automáticamente en 2 minutos si no respondes.
+      data:
+        tag: fin_lluvia
+        actions:
+          - action: ABRIR_VENTANAS
+            title: Abrir ahora
+          - action: NO_ABRIR_PERSIANA
+            title: Dejar cerrada
+    action: notify.mobile_app_sm_s936b_pedro
+  - delay:
+      hours: 0
+      minutes: 2
+      seconds: 0
+  - condition: state
+    entity_id: input_boolean.no_abrir_persiana_lluvia
+    state: "off"
+  - condition: state
+    entity_id: cover.persiana_cocina
+    state: closed
+  - action: cover.open_cover
+    target:
+      entity_id: cover.persiana_cocina
+  - action: notify.mobile_app_sm_s936b_pedro
+    data:
+      title: ✅ Persiana abierta
+      message: Persiana de cocina abierta automáticamente tras dejar de llover
+      data:
+        tag: fin_lluvia
+mode: single
+```
+🎯 Cómo funciona
+* Deja de llover → Notificación: "¿Abrir persiana? Se abrirá en 2 min"
+
+Tienes 3 opciones: 
+* ✅ "Abrir ahora" → Abre inmediatamente
+* ❌ "Dejar cerrada" → Cancela apertura automática
+* ⏱️ No hacer nada → Espera 2 minutos y abre automáticamente
+
+Protección: Si durante esos 2 minutos: 
+Cierras la persiana manualmente → No la abrirá (comprueba que siga cerrada)
+Pulsas cualquier botón → Cancela la apertura automática
 
 
+Persiana cocina abierta amanecer
+```
+alias: Persiana cocina abierta amanecer
+description: ""
+triggers:
+  - trigger: sun
+    event: sunrise
+    offset: 0
+conditions:
+  - condition: device
+    device_id: 01b8c579342b7316b949b715d378f4f8
+    domain: cover
+    entity_id: c2a9f78df8bfb0c82c00f48577da3852
+    type: is_closed
+  - condition: device
+    device_id: 01b8c579342b7316b949b715d378f4f8
+    domain: cover
+    entity_id: c2a9f78df8bfb0c82c00f48577da3852
+    type: is_position
+    below: 100
+  - condition: state
+    entity_id: binary_sensor.lluvia_confirmada_meteoclimatic
+    state:
+      - "off"
+actions:
+  - action: cover.open_cover
+    metadata: {}
+    data: {}
+    target:
+      entity_id: cover.persiana_cocina
+  - action: notify.mobile_app_sm_s936b_pedro
+    metadata: {}
+    data:
+      title: ✅ Persiana cocina abierta
+      message: Persiana cocina abierta al amanecer
+mode: single
+```
+
+Persiana cocina cerrada atardecer
+```
+alias: Persiana cocina cerrada atardecer
+description: ""
+triggers:
+  - trigger: sun
+    event: sunset
+    offset: 0
+conditions:
+  - condition: or
+    conditions:
+      - condition: state
+        entity_id: cover.persiana_cocina
+        state:
+          - open
+actions:
+  - action: cover.close_cover
+    metadata: {}
+    data: {}
+    target:
+      entity_id: cover.persiana_cocina
+  - action: notify.mobile_app_sm_s936b_pedro
+    metadata: {}
+    data:
+      message: Persiana cocina cerrada al atardecer
+      title: ✅ Persiana cocina cerrada
+mode: single
+```
 
 
 
