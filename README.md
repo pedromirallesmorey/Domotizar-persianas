@@ -4,6 +4,8 @@ Como domotizar persianas
 Material utilizado:
 * Schellenberg 20407 
 Motor Tubular Eléctrico para Persianas, con Eje de 40 mm, Juego Completo Incl. Soporte Mural, 15 kg, 6 nm
+<img width="243" height="229" alt="Image" src="https://github.com/user-attachments/assets/f751e76a-9fcf-4a55-93cf-55d288034c9e" />
+
 * Shelly 2PM Gen3
 Relé Interruptor de Persianas Inalàmbrico, 2 Canales - 16 A, Wi-Fi & Bluetooth, con Medidor de Consumo
 <img width="143" height="129" alt="Image" src="https://github.com/user-attachments/assets/3031d615-13d1-4156-bcf0-c28e0fded1b3" />
