@@ -5,4 +5,4 @@ Como domotizar persianas
 
 
 
-[A](maain/Esquema.PNG)
+[A](Domotizar-persianas/blob/main/Esquema.png)
