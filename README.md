@@ -4,7 +4,7 @@ Como domotizar persianas
 
 
 
-![texto alternativo](/images/Esquema.PNG)
+![texto alternativo](/Esquema.PNG)
 
 
 
