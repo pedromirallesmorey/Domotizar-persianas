@@ -1,7 +1,7 @@
 # Domotizar-persianas
 Como domotizar persianas
 
-Material utilizado:
+## Material utilizado:
 * Schellenberg 20407 
 Motor Tubular Eléctrico para Persianas, con Eje de 40 mm, Juego Completo Incl. Soporte Mural, 15 kg, 6 nm
 <img width="243" height="229" alt="Image" src="https://github.com/user-attachments/assets/f751e76a-9fcf-4a55-93cf-55d288034c9e" />
@@ -12,12 +12,12 @@ Relé Interruptor de Persianas Inalàmbrico, 2 Canales - 16 A, Wi-Fi & Bluetooth
 
 * Schellenberg 
 Pulsador de Persianas, Interruptor Empotrable Pared
-<img width="243" height="229" alt="Image" src="https://github.com/user-attachments/assets/f751e76a-9fcf-4a55-93cf-55d288034c9e](https://github.com/user-attachments/assets/0e7821bd-54f4-499b-8381-a9417c84e2dc" />
+<img width="143" height="129" alt="Image" src="https://github.com/user-attachments/assets/0e7821bd-54f4-499b-8381-a9417c84e2dc" />
 
 * Sensor de lluvia y luz Tiardey Smart Zigbee
 <img width="143" height="247" alt="Image" src="https://github.com/user-attachments/assets/2ddb1e8c-465c-49f4-b17e-4a6504ef66b0" />
 
-Esquema de conexión:
+## Esquema de conexión:
 
 <img width="747" height="486" alt="Image" src="https://github.com/user-attachments/assets/ba0d1eec-347c-4e2d-9dfb-d5d929d7db52" />
 
