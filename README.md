@@ -12,6 +12,8 @@ Relé Interruptor de Persianas Inalàmbrico, 2 Canales - 16 A, Wi-Fi & Bluetooth
 
 * Schellenberg 
 Pulsador de Persianas, Interruptor Empotrable Pared
+<img width="243" height="229" alt="Image" src="https://github.com/user-attachments/assets/f751e76a-9fcf-4a55-93cf-55d288034c9e](https://github.com/user-attachments/assets/0e7821bd-54f4-499b-8381-a9417c84e2dc" />
+
 * Sensor de lluvia y luz Tiardey Smart Zigbee
 <img width="143" height="247" alt="Image" src="https://github.com/user-attachments/assets/2ddb1e8c-465c-49f4-b17e-4a6504ef66b0" />
 
