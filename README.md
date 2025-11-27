@@ -6,6 +6,8 @@ Material utilizado:
 Motor Tubular Eléctrico para Persianas, con Eje de 40 mm, Juego Completo Incl. Soporte Mural, 15 kg, 6 nm
 * Shelly 2PM Gen3
 Relé Interruptor de Persianas Inalàmbrico, 2 Canales - 16 A, Wi-Fi & Bluetooth, con Medidor de Consumo
+<img width="143" height="129" alt="Image" src="https://github.com/user-attachments/assets/3031d615-13d1-4156-bcf0-c28e0fded1b3" />
+
 * Schellenberg 
 Pulsador de Persianas, Interruptor Empotrable Pared
 * Sensor de lluvia y luz Tiardey Smart Zigbee
