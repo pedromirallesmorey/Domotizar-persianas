@@ -1,5 +1,5 @@
 # Domotizar-persianas
-Como domotizar persianas
+## Como domotizar persianas
 
 ## Material utilizado:
 * Schellenberg 20407 
@@ -20,6 +20,25 @@ Pulsador de Persianas, Interruptor Empotrable Pared
 ## Esquema de conexión:
 
 <img width="747" height="486" alt="Image" src="https://github.com/user-attachments/assets/ba0d1eec-347c-4e2d-9dfb-d5d929d7db52" />
+
+
+### 🔑 Entidades principales
+* Sensor físico de lluvia Tiardey / binary_sensor.sensor_lluvia
+* Estación Meteoclimatic Marratxí / weather.marratxi_son_ametler_mallorca
+* Persiana / cover.persiana_cocina
+* Servicio de notificaciones / notify.mobile_app_sm_s936b_pedro
+
+### 📊 Variables usadas en validación
+* precipitation → Precipitación (si está disponible en Meteoclimatic)
+* humidity → Humedad relativa (%)
+* temperature → Temperatura (°C)
+* condition → Estado del tiempo (rainy, pouring, etc.)
+* sensor_local → Estado del sensor Tiardey (on = mojado)
+
+### 🧩 SENSORES/AYUDANTES
+### Sensor binario
+Lluvia Confirmada Meteoclimatic (Sensor binario)
+Creamos un sensor que detecta si es lluvia real o rocío.
 
 
 
